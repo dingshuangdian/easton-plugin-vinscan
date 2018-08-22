@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-iov-vinscan" version="1.0.0">
+  <name>VinScan</name>
+  <preference default="" name="COMPANY_NAME"/>
+  <preference default="" name="DEVCODE_KEY"/>
+  <js-module name="VinScan" src="www/VinScan.js">
+    <clobbers target="cordova.vinscan"/>
+  </js-module>
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="VinScan">
+        <param name="ios-package" value="VinScan"/>
+      </feature>
+    </config-file>
+    <config-file parent="CompanyName" target="*-Info.plist">
+      <string>$COMPANY_NAME</string>
+    </config-file>
+    <config-file parent="VinScan" target="*-Info.plist">
+      <dict>
+        <key>DEVCODE_KEY</key>
+        <string>$DEVCODE_KEY</string>
+      </dict>
+    </config-file>
+    <header-file src="src/ios/VinScan.h"/>
+    <source-file src="src/ios/VinScan.m"/>
+    <framework src="libxml2.tbd" weak="true"/>
+    <framework src="libiconv.2.4.0.tbd" weak="true"/>
+  </platform>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="VinScan">
+        <param name="android-package" value="cordova-plugin-iov-vinscan.VinScan"/>
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"/>
+    <source-file src="src/android/VinScan.java" target-dir="src/cordova-plugin-iov-vinscan/VinScan"/>
+	<framework src="src/android/smartvisioniibrary" custom="true" />
+  </platform>
+</plugin>

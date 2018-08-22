@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/re"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000">
+
+    <SurfaceView
+        android:id="@+id/surfaceview_camera"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <include layout="@layout/focus_indicator" />
+
+    <ImageView
+        android:id="@+id/iv_camera_back"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/camera_back" />
+
+    <ImageView
+        android:id="@+id/iv_camera_flash"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/bg_template_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#000000"></RelativeLayout>
+
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/type_template_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#000000"
+        android:listSelector="#000000"
+        android:scrollbars="none"
+        />
+    <com.kernal.smartvision.view.HorizontalListView
+        android:visibility="gone"
+        android:id="@+id/type_template_HorizontallistView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        />
+
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/recogResult_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#7f000000"
+        android:listSelector="#00000000"
+        android:scrollbars="none"></ListView>
+
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/imbtn_takepic"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/take_pic_btn"
+        />
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_summit"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#5fffffff"
+        android:text="@string/ok"
+        android:textColor="#ffffff"
+        android:textSize="18dip" />
+    <ImageView
+
+        android:id="@+id/iv_scaner_line"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:background="@drawable/scanline"
+        android:visibility="gone"/>
+
+</RelativeLayout>
