@@ -29,11 +29,27 @@
   <platform name="android">
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="VinScan">
-        <param name="android-package" value="cordova-plugin-iov-vinscan.VinScan"/>
+        <param name="android-package" value="vinscan.VinScan"/>
       </feature>
     </config-file>
-    <config-file parent="/*" target="AndroidManifest.xml"/>
-    <source-file src="src/android/VinScan.java" target-dir="src/cordova-plugin-iov-vinscan/VinScan"/>
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<meta-data
+      android:name="COMPANY_NAME"
+      android:value="$COMPANY_NAME" />
+			<meta-data
+      android:name="DEVCODE_KEY"
+      android:value="$DEVCODE_KEY" />
+	
+
+		</config-file>
+   	<config-file parent="/*" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+			
+		</config-file>
+  <source-file src="src/android/VinScan.java" target-dir="app/src/main/java/vinscan"/>
+		<source-file src="src/android/SaveDevcode.java" target-dir="app/src/main/java/vinscan"/>
 	<framework src="src/android/smartvisioniibrary" custom="true" />
   </platform>
 </plugin>
