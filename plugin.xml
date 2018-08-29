@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-iov-vinscan" version="1.0.0">
-  <name>VinScan</name>
-  <preference default="" name="COMPANY_NAME"/>
-  <preference default="" name="DEVCODE_KEY"/>
-  <js-module name="VinScan" src="www/VinScan.js">
-    <clobbers target="cordova.vinscan"/>
-  </js-module>
-  <platform name="ios">
-    <config-file parent="/*" target="config.xml">
-      <feature name="VinScan">
-        <param name="ios-package" value="VinScan"/>
-      </feature>
-    </config-file>
-    <config-file parent="CompanyName" target="*-Info.plist">
-      <string>$COMPANY_NAME</string>
-    </config-file>
-    <config-file parent="VinScan" target="*-Info.plist">
-      <dict>
-        <key>DEVCODE_KEY</key>
-        <string>$DEVCODE_KEY</string>
-      </dict>
-    </config-file>
-    <header-file src="src/ios/VinScan.h"/>
-    <source-file src="src/ios/VinScan.m"/>
-    <framework src="libxml2.tbd" weak="true"/>
-    <framework src="libiconv.2.4.0.tbd" weak="true"/>
-  </platform>
-  <platform name="android">
-    <config-file parent="/*" target="res/xml/config.xml">
-      <feature name="VinScan">
-        <param name="android-package" value="vinscan.VinScan"/>
-      </feature>
-    </config-file>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="easton-plugin-vinscan" version="1.0.4">
+	<name>VinScan</name>
+	<preference default="" name="COMPANY_NAME"/>
+	<preference default="" name="DEVCODE_KEY"/>
+	<js-module name="VinScan" src="www/VinScan.js">
+		<clobbers target="cordova.vinscan"/>
+	</js-module>
+	<platform name="ios">
+		<config-file parent="/*" target="config.xml">
+			<feature name="VinScan">
+				<param name="ios-package" value="VinScan"/>
+			</feature>
+		</config-file>
+		<config-file parent="CompanyName" target="*-Info.plist">
+			<string>$COMPANY_NAME</string>
+		</config-file>
+		<config-file parent="VinScan" target="*-Info.plist">
+			<dict>
+				<key>DEVCODE_KEY</key>
+				<string>$DEVCODE_KEY</string>
+			</dict>
+		</config-file>
+		<header-file src="src/ios/VinScan.h"/>
+		<source-file src="src/ios/VinScan.m"/>
+		<framework src="libxml2.tbd" weak="true"/>
+		<framework src="libiconv.2.4.0.tbd" weak="true"/>
+	</platform>
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="VinScan">
+				<param name="android-package" value="vinscan.VinScan"/>
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.CAMERA" />
+			<uses-permission android:name="android.permission.RECORD_AUDIO" />
+			<uses-feature android:name="android.hardware.camera" />
+			<uses-feature android:name="android.hardware.camera.autofocus" />
+			<uses-permission android:name="android.permission.VIBRATE" />
+			<!-- 往SDCard写入数据权限 -->
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<!-- 读取权限 -->
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+			<!-- 在SDCard中创建与删除文件权限 -->
+			<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+			<!-- 关闭该包下的所有应用程序 -->
+			<uses-permission android:name="android.permission.RESTART_PACKAGES" />
+			<!-- 获取机型信息权限 -->
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<!-- 访问internet权限 -->
+			<uses-permission android:name="android.permission.INTERNET" />
+			<!-- 闪光灯权限 -->
+			<uses-permission android:name="android.permission.FLASHLIGHT" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		</config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
 			<meta-data
       android:name="COMPANY_NAME"
@@ -39,17 +64,267 @@
 			<meta-data
       android:name="DEVCODE_KEY"
       android:value="$DEVCODE_KEY" />
-	
+			<activity android:name="vinscan.ocr.MainActivity" />
+    <activity
+      android:name="vinscan.ocr.CameraActivity"
+      android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+      android:screenOrientation="landscape" />
+    <activity
+      android:name="vinscan.ocr.ShowResultActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name="vinscan.ocr.SettingActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name="vinscan.ocr.PermissionActivity"
+      android:screenOrientation="portrait" />
+
+    <service
+      android:name="com.kernal.smartvisionocr.RecogService"
+      android:enabled="true">
+      <intent-filter>
+        <action android:name="kernal.smartvisionocr.recogService" />
+      </intent-filter>
+    </service>
 
 		</config-file>
-   	<config-file parent="/*" target="AndroidManifest.xml">
-			<uses-permission android:name="android.permission.INTERNET" />
-			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-			
-		</config-file>
-  <source-file src="src/android/VinScan.java" target-dir="app/src/main/java/vinscan"/>
+
+		<source-file src="src/android/VinScan.java" target-dir="app/src/main/java/vinscan"/>
 		<source-file src="src/android/SaveDevcode.java" target-dir="app/src/main/java/vinscan"/>
-	<framework src="src/android/smartvisioniibrary" custom="true" />
-  </platform>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/adapter/CameraDocTypeAdapter.java" target-dir="app/src/main/java/vinscan/adapter"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/adapter/RecogResultAdapter.java" target-dir="app/src/main/java/vinscan/adapter"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/adapter/SetDocTypeAdapter.java" target-dir="app/src/main/java/vinscan/adapter"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/adapter/ShowResultListAdapter.java" target-dir="app/src/main/java/vinscan/adapter"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/adapter/VinParseResultAdapter.java" target-dir="app/src/main/java/vinscan/adapter"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/inteface/FocusIndicator.java" target-dir="app/src/main/java/vinscan/inteface"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/inteface/Rotatable.java" target-dir="app/src/main/java/vinscan/inteface"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/CameraActivity.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/CheckPermission.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/Devcode.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/FocusManager.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/MainActivity.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/PermissionActivity.java" target-dir="app/src/main/java/vinscan/ocr"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/SettingActivity.java" target-dir="app/src/main/java/vinscan/ocr"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/ocr/ShowResultActivity.java" target-dir="app/src/main/java/vinscan/ocr"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/utils/CameraParametersUtils.java" target-dir="app/src/main/java/vinscan/utils"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/utils/CameraSetting.java" target-dir="app/src/main/java/vinscan/utils"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/utils/EditTextWatcher.java" target-dir="app/src/main/java/vinscan/utils"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/utils/Utills.java" target-dir="app/src/main/java/vinscan/utils"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/utils/ViewUtil.java" target-dir="app/src/main/java/vinscan/utils"/>
+
+
+
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/view/FocusIndicatorView.java" target-dir="app/src/main/java/vinscan/view"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/view/HorizontalListView.java" target-dir="app/src/main/java/vinscan/view"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/view/RotateLayout.java" target-dir="app/src/main/java/vinscan/view"/>
+
+		<source-file src="src/android/smartvisioniibrary/src/main/java/com/kernal/smartvision/view/ViewfinderView.java" target-dir="app/src/main/java/vinscan/view"/>
+
+
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/arm64-v8a/libAndroidSmartVisionOcr.so" target-dir="app/libs/arm64-v8a"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/arm64-v8a/libVinParseEngine.so" target-dir="app/libs/arm64-v8a"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/armeabi/libVinParseEngine.so" target-dir="app/libs/armeabi"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/armeabi/libAndroidSmartVisionOcr.so" target-dir="app/libs/armeabi"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/armeabi-V7a/libAndroidSmartVisionOcr.so" target-dir="app/libs/armeabi-V7a"/>
+		<source-file src="src/android/smartvisioniibrary/src/main/jniLibs/armeabi-V7a/libVinParseEngine.so" target-dir="app/libs/armeabi-V7a"/>
+		<lib-file src="src/android/smartvisioniibrary/src/main/jniLibs/android_auth.jar" />
+		<lib-file src="src/android/smartvisioniibrary/src/main/jniLibs/pki.jar" />
+		<lib-file src="src/android/smartvisioniibrary/src/main/jniLibs/SmartVisionOCR_sdk.jar" />
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/appTemplateConfig.xml" target="assets/SmartVisition/appTemplateConfig.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/appTemplatePortraitConfig.xml" target="assets/SmartVisition/appTemplatePortraitConfig.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/pntWTPENPDA1.lib" target="assets/SmartVisition/pntWTPENPDA1.lib"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/pntWTPENPDA2.lib" target="assets/SmartVisition/pntWTPENPDA2.lib"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/smartvisition.lsc" target="assets/SmartVisition/smartvisition.lsc"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/SZHY.xml" target="assets/SmartVisition/SZHY.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/THOCR_Num_Char.lib" target="assets/SmartVisition/THOCR_Num_Char.lib"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/thocr_vl_digit_capitals.lib" target="assets/SmartVisition/thocr_vl_digit_capitals.lib"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/version.txt" target="assets/SmartVisition/version.txt"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/vin.dat" target="assets/SmartVisition/vin.dat"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/assets/SmartVisition/WTPENPDA.lib" target="assets/SmartVisition/WTPENPDA.lib"/>
+
+
+
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/anim/push_down_out.xml" target="res/anim/push_down_out.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/anim/zoom_enter.xml" target="res/anim/zoom_enter.xml"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_camera.xml" target="res/layout/activity_camera.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_list_doc_type.xml" target="res/layout/activity_list_doc_type.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_list_recogresult.xml" target="res/layout/activity_list_recogresult.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_main.xml" target="res/layout/activity_main.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_set_doctype.xml" target="res/layout/activity_set_doctype.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_set_upload.xml" target="res/layout/activity_set_upload.xml"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_setting.xml" target="res/layout/activity_setting.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_setting_item.xml" target="res/layout/activity_setting_item.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_show_result.xml" target="res/layout/activity_show_result.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_showresult_list_result.xml" target="res/layout/activity_showresult_list_result.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/activity_vinparse_list_result.xml" target="res/layout/activity_vinparse_list_result.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/dialog_layout.xml" target="res/layout/dialog_layout.xml"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/focus_indicator.xml" target="res/layout/focus_indicator.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/permission_layout.xml" target="res/layout/permission_layout.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/layout/toast_layout.xml" target="res/layout/toast_layout.xml"/>
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/values/vn_colors.xml" target="res/values/vn_colors.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/values/vn_dimens.xml" target="res/values/vn_dimens.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/values/vn_strings.xml" target="res/values/vn_strings.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/values/vn_styles.xml" target="res/values/vn_styles.xml"/>
+
+
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/app_logo.png" target="res/drawable-hdpi/app_logo.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_about.png" target="res/drawable-hdpi/btn_about.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_back.xml" target="res/drawable-hdpi/btn_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_back_normal.png" target="res/drawable-hdpi/btn_back_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_back_pressed.png" target="res/drawable-hdpi/btn_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_feed.png" target="res/drawable-hdpi/btn_feed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_scan.png" target="res/drawable-hdpi/btn_scan.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_set.png" target="res/drawable-hdpi/btn_set.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/btn_submit.png" target="res/drawable-hdpi/btn_submit.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/camera_back.xml" target="res/drawable-hdpi/camera_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/camera_back_nomal.png" target="res/drawable-hdpi/camera_back_nomal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/camera_back_pressed.png" target="res/drawable-hdpi/camera_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/checkbox.xml" target="res/drawable-hdpi/checkbox.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/checkbox_normal.png" target="res/drawable-hdpi/checkbox_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/checkbox_pressed.png" target="res/drawable-hdpi/checkbox_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/flash_off.png" target="res/drawable-hdpi/flash_off.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/flash_on.png" target="res/drawable-hdpi/flash_on.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/ic_focus_failed.9.png" target="res/drawable-hdpi/ic_focus_failed.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/ic_focus_focused.9.png" target="res/drawable-hdpi/ic_focus_focused.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/ic_focus_focusing.9.png" target="res/drawable-hdpi/ic_focus_focusing.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/ic_launcher.png" target="res/drawable-hdpi/ic_launcher.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/rec_button_color.xml" target="res/drawable-hdpi/rec_button_color.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/result_edittext.png" target="res/drawable-hdpi/result_edittext.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/style_toast.xml" target="res/drawable-hdpi/style_toast.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-hdpi/take_pic_btn.png" target="res/drawable-hdpi/take_pic_btn.png"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/app_logo.png" target="res/drawable-ldpi/app_logo.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_about.png" target="res/drawable-ldpi/btn_about.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_back.xml" target="res/drawable-ldpi/btn_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_back_normal.png" target="res/drawable-ldpi/btn_back_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_back_pressed.png" target="res/drawable-ldpi/btn_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_feed.png" target="res/drawable-ldpi/btn_feed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_scan.png" target="res/drawable-ldpi/btn_scan.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_set.png" target="res/drawable-ldpi/btn_set.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/btn_submit.png" target="res/drawable-ldpi/btn_submit.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/camera_back.xml" target="res/drawable-ldpi/camera_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/camera_back_nomal.png" target="res/drawable-ldpi/camera_back_nomal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/camera_back_pressed.png" target="res/drawable-ldpi/camera_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/checkbox.xml" target="res/drawable-ldpi/checkbox.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/checkbox_normal.png" target="res/drawable-ldpi/checkbox_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/checkbox_pressed.png" target="res/drawable-ldpi/checkbox_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/flash_off.png" target="res/drawable-ldpi/flash_off.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/flash_on.png" target="res/drawable-ldpi/flash_on.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/ic_focus_failed.9.png" target="res/drawable-ldpi/ic_focus_failed.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/ic_focus_focused.9.png" target="res/drawable-ldpi/ic_focus_focused.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/ic_focus_focusing.9.png" target="res/drawable-ldpi/ic_focus_focusing.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/ic_launcher.png" target="res/drawable-ldpi/ic_launcher.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/rec_button_color.xml" target="res/drawable-ldpi/rec_button_color.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/result_edittext.png" target="res/drawable-ldpi/result_edittext.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/style_toast.xml" target="res/drawable-ldpi/style_toast.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-ldpi/take_pic_btn.png" target="res/drawable-ldpi/take_pic_btn.png"/>
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/app_logo.png" target="res/drawable-mdpi/app_logo.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_about.png" target="res/drawable-mdpi/btn_about.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_back.xml" target="res/drawable-mdpi/btn_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_back_normal.png" target="res/drawable-mdpi/btn_back_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_back_pressed.png" target="res/drawable-mdpi/btn_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_feed.png" target="res/drawable-mdpi/btn_feed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_scan.png" target="res/drawable-mdpi/btn_scan.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_set.png" target="res/drawable-mdpi/btn_set.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/btn_submit.png" target="res/drawable-mdpi/btn_submit.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/camera_back.xml" target="res/drawable-mdpi/camera_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/camera_back_nomal.png" target="res/drawable-mdpi/camera_back_nomal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/camera_back_pressed.png" target="res/drawable-mdpi/camera_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/checkbox.xml" target="res/drawable-mdpi/checkbox.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/checkbox_normal.png" target="res/drawable-mdpi/checkbox_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/checkbox_pressed.png" target="res/drawable-mdpi/checkbox_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/flash_off.png" target="res/drawable-mdpi/flash_off.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/flash_on.png" target="res/drawable-mdpi/flash_on.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/ic_focus_failed.9.png" target="res/drawable-mdpi/ic_focus_failed.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/ic_focus_focused.9.png" target="res/drawable-mdpi/ic_focus_focused.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/ic_focus_focusing.9.png" target="res/drawable-mdpi/ic_focus_focusing.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/ic_launcher.png" target="res/drawable-mdpi/ic_launcher.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/rec_button_color.xml" target="res/drawable-mdpi/rec_button_color.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/result_edittext.png" target="res/drawable-mdpi/result_edittext.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/style_toast.xml" target="res/drawable-mdpi/style_toast.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-mdpi/take_pic_btn.png" target="res/drawable-mdpi/take_pic_btn.png"/>
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/app_logo.png" target="res/drawable-xhdpi/app_logo.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_about.png" target="res/drawable-xhdpi/btn_about.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_back.xml" target="res/drawable-xhdpi/btn_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_back_normal.png" target="res/drawable-xhdpi/btn_back_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_back_pressed.png" target="res/drawable-xhdpi/btn_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_feed.png" target="res/drawable-xhdpi/btn_feed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_scan.png" target="res/drawable-xhdpi/btn_scan.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_set.png" target="res/drawable-xhdpi/btn_set.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/btn_submit.png" target="res/drawable-xhdpi/btn_submit.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/camera_back.xml" target="res/drawable-xhdpi/camera_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/camera_back_nomal.png" target="res/drawable-xhdpi/camera_back_nomal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/camera_back_pressed.png" target="res/drawable-xhdpi/camera_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/checkbox.xml" target="res/drawable-xhdpi/checkbox.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/checkbox_normal.png" target="res/drawable-xhdpi/checkbox_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/checkbox_pressed.png" target="res/drawable-xhdpi/checkbox_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/flash_off.png" target="res/drawable-xhdpi/flash_off.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/flash_on.png" target="res/drawable-xhdpi/flash_on.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/ic_focus_failed.9.png" target="res/drawable-xhdpi/ic_focus_failed.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/ic_focus_focused.9.png" target="res/drawable-xhdpi/ic_focus_focused.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/ic_focus_focusing.9.png" target="res/drawable-xhdpi/ic_focus_focusing.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/ic_launcher.png" target="res/drawable-xhdpi/ic_launcher.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/rec_button_color.xml" target="res/drawable-xhdpi/rec_button_color.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/result_edittext.png" target="res/drawable-xhdpi/result_edittext.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/style_toast.xml" target="res/drawable-xhdpi/style_toast.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/take_pic_btn.png" target="res/drawable-xhdpi/take_pic_btn.png"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/set_select_backgroud.png" target="res/drawable-xhdpi/set_select_backgroud.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/unselect_settype.png" target="res/drawable-xhdpi/unselect_settype.png"/>
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/bg_edittext_focused.xml" target="res/drawable-xhdpi/bg_edittext_focused.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/bg_edittext_normal.xml" target="res/drawable-xhdpi/bg_edittext_normal.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xhdpi/bg_edittext.xml" target="res/drawable-xhdpi/bg_edittext.xml"/>
+
+
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/app_logo.png" target="res/drawable-xxhdpi/app_logo.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_about.png" target="res/drawable-xxhdpi/btn_about.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_back.xml" target="res/drawable-xxhdpi/btn_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_back_normal.png" target="res/drawable-xxhdpi/btn_back_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_back_pressed.png" target="res/drawable-xxhdpi/btn_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_feed.png" target="res/drawable-xxhdpi/btn_feed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_scan.png" target="res/drawable-xxhdpi/btn_scan.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_set.png" target="res/drawable-xxhdpi/btn_set.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/btn_submit.png" target="res/drawable-xxhdpi/btn_submit.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/camera_back.xml" target="res/drawable-xxhdpi/camera_back.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/camera_back_nomal.png" target="res/drawable-xxhdpi/camera_back_nomal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/camera_back_pressed.png" target="res/drawable-xxhdpi/camera_back_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/checkbox.xml" target="res/drawable-xxhdpi/checkbox.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/checkbox_normal.png" target="res/drawable-xxhdpi/checkbox_normal.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/checkbox_pressed.png" target="res/drawable-xxhdpi/checkbox_pressed.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/flash_off.png" target="res/drawable-xxhdpi/flash_off.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/flash_on.png" target="res/drawable-xxhdpi/flash_on.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/ic_focus_failed.9.png" target="res/drawable-xxhdpi/ic_focus_failed.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/ic_focus_focused.9.png" target="res/drawable-xxhdpi/ic_focus_focused.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/ic_focus_focusing.9.png" target="res/drawable-xxhdpi/ic_focus_focusing.9.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/ic_launcher.png" target="res/drawable-xxhdpi/ic_launcher.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/rec_button_color.xml" target="res/drawable-xxhdpi/rec_button_color.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/result_edittext.png" target="res/drawable-xxhdpi/result_edittext.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/style_toast.xml" target="res/drawable-xxhdpi/style_toast.xml"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/take_pic_btn.png" target="res/drawable-xxhdpi/take_pic_btn.png"/>
+		<resource-file src="src/android/smartvisioniibrary/src/main/res/drawable-xxhdpi/scanline.png" target="res/drawable-xxhdpi/scanline.png"/>
+		<framework src="src/android/smartvision.gradle" custom="true" type="gradleReference"/>
+
+	</platform>
 </plugin>

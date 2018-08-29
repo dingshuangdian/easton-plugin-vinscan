@@ -1,4 +1,4 @@
-package com.kernal.smartvision.utils;
+package vinscan.utils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -142,7 +142,7 @@ public class CameraParametersUtils {
 			surfaceWidth = srcWidth;
 			surfaceHeight=srcHeight;
 		}
-		
+
 	}
 
 	@SuppressLint("NewApi")

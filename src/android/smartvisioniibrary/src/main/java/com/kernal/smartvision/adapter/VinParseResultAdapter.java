@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package com.kernal.smartvision.adapter;
+package vinscan.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,18 +14,18 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-/**   
- *    
- * 项目名称：SmartVisionOCRV1.0.0.3  
- * 类名称：VinParseResultAdapter  
- * 类描述：   
- * 创建人：user  
- * 创建时间：2016-9-27 下午3:28:19  
- * 修改人：user  
- * 修改时间：2016-9-27 下午3:28:19  
- * 修改备注：   
- * @version    
- *    
+/**
+ *
+ * 项目名称：SmartVisionOCRV1.0.0.3
+ * 类名称：VinParseResultAdapter
+ * 类描述：
+ * 创建人：user
+ * 创建时间：2016-9-27 下午3:28:19
+ * 修改人：user
+ * 修改时间：2016-9-27 下午3:28:19
+ * 修改备注：
+ * @version
+ *
  */
 public class VinParseResultAdapter extends BaseAdapter {
 	private Context context;
@@ -40,15 +40,15 @@ public class VinParseResultAdapter extends BaseAdapter {
 		this.context = context;
 		this.width = width;
 		this.height = height;
-	
+
 
 	}
-	
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return recogResult.size();
-		
+
 	}
 
 
@@ -57,7 +57,7 @@ public class VinParseResultAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 
 		return recogResult.get(position);
-		
+
 	}
 
 
@@ -69,7 +69,7 @@ public class VinParseResultAdapter extends BaseAdapter {
 	public void SetData(List<HashMap<String, String>> recogResult){
 		this.recogResult = recogResult;
 	}
-	public static class ViewHolder {	
+	public static class ViewHolder {
 		private TextView tv_result = null;
 		private RelativeLayout vin_parse_showResult = null;
 	}
@@ -83,7 +83,7 @@ public class VinParseResultAdapter extends BaseAdapter {
 					context.getResources().getIdentifier(
 							"activity_vinparse_list_result", "layout",
 							context.getPackageName()), null);
-			
+
 			holder.tv_result =  (TextView) convertView.findViewById(context.getResources().getIdentifier("tv_result",
 	                "id", context.getPackageName()));
 			holder.vin_parse_showResult = (RelativeLayout) convertView
@@ -93,18 +93,18 @@ public class VinParseResultAdapter extends BaseAdapter {
 					(int) (height * 0.06));
 			params.leftMargin = (int) (width * 0.04);
 			holder.tv_result.setLayoutParams(params);
-			
+
 			params = new RelativeLayout.LayoutParams(width,
 					(int) (height * 0.05));
 			params.leftMargin = 0;
 			holder.vin_parse_showResult.setLayoutParams(params);
-			
+
 			 convertView.setTag(holder);
 		} else {
 				holder = (ViewHolder) convertView.getTag();
-				
+
 		}
-		
+
 		keyName=recogResult.get(position).keySet().iterator().next();
 		holder.tv_result.setText(keyName+":"+recogResult.get(position).get(keyName));
 		return convertView;

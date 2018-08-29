@@ -1,10 +1,11 @@
-package com.kernal.smartvision.view;
+package vinscan.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.kernal.smartvision.inteface.FocusIndicator;
+import vinscan.inteface.FocusIndicator;
+
 
 // A view that indicates the focus area or the metering area.
 public class FocusIndicatorView extends View implements FocusIndicator {

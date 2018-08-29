@@ -1,4 +1,4 @@
-package com.kernal.smartvision.adapter;
+package vinscan.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kernal.smartvision.R;
-import com.kernal.smartvision.utils.EditTextWatcher;
-import com.kernal.smartvision.utils.ViewUtil;
+
 import com.kernal.vinparseengine.VinParseInfo;
 
 import java.util.ArrayList;
+
+import io.ionic.starter.R;
+import vinscan.utils.EditTextWatcher;
+import vinscan.utils.ViewUtil;
 
 /**
  * Created by huangzhen on 2016/4/11.
@@ -54,7 +56,7 @@ public class ShowResultListAdapter extends BaseAdapter {
 		this.SavePicPath = savePath;
 		this.screenInches = screenInches;
 		this.adapter = adapter;
-	
+
 
 	}
 
@@ -83,7 +85,7 @@ public class ShowResultListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView,
 						ViewGroup viewGroup) {
-		
+
 		if (convertView == null) {
 			holder  = new ViewHolder();
 			convertView = inflater.inflate(
@@ -124,14 +126,14 @@ public class ShowResultListAdapter extends BaseAdapter {
 			params.leftMargin = 0;
 			params.topMargin = (int) (height * 0.05);
 			holder.bg_re_showResult.setLayoutParams(params);
-			
+
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if (recogResult.size() > position) {
 			Bitmap bitmap = BitmapFactory.decodeFile(SavePicPath.get(position));
-			if (recogResult.get(position).split(":")[0] != null) {			
+			if (recogResult.get(position).split(":")[0] != null) {
 				holder.tv_FieldName.setText(recogResult.get(position)
 						.split(":")[0]);
 			}
@@ -148,7 +150,7 @@ public class ShowResultListAdapter extends BaseAdapter {
 						}
 
 					}
-					
+
 					holder.et_FieldName.setText(recogReSult);
 
 				} else {
@@ -205,7 +207,7 @@ public class ShowResultListAdapter extends BaseAdapter {
 								ViewUtil.addLetterSpacing(holder.et_FieldName,
 										(float) 0.8);
 							} else if (screenInches < 5.4) {
-							
+
 								holder.et_FieldName.setTextSize(16);
 								holder.et_FieldName.setPadding(
 										3 + (int) (width * 0.01), 1, 1, 1);

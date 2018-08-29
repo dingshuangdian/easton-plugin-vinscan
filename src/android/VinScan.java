@@ -7,22 +7,17 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-
-import com.kernal.smartvision.ocr.CameraActivity;
-
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import vinscan.ocr.CameraActivity;
 import static android.app.Activity.RESULT_OK;
-
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -32,6 +27,7 @@ public class VinScan extends CordovaPlugin {
   private CordovaInterface cordovaInterface;
   public CallbackContext callback;
   private Context mContext;
+  private String company_name;
   private Map<String, String> list = new HashMap<>(2);
 
   @Override
@@ -114,7 +110,7 @@ public class VinScan extends CordovaPlugin {
   private void getCode() {
     try {
       ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(mContext.getPackageName(), PackageManager.GET_META_DATA);
-      String company_name = appInfo.metaData.getString("COMPANY_NAME");
+      company_name = appInfo.metaData.getString("COMPANY_NAME");
       String devcodeKey = appInfo.metaData.getString("DEVCODE_KEY");
       list.put("company_name", company_name);
       list.put("devcodeKey", devcodeKey);
@@ -123,4 +119,6 @@ public class VinScan extends CordovaPlugin {
       e.printStackTrace();
     }
   }
+
+
 }

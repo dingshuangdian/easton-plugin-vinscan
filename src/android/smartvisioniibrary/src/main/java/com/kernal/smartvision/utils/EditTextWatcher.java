@@ -1,4 +1,4 @@
-package com.kernal.smartvision.utils;
+package vinscan.utils;
 
 import android.content.Context;
 import android.text.Editable;
@@ -8,11 +8,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kernal.smartvision.adapter.VinParseResultAdapter;
 import com.kernal.vinparseengine.VinParseInfo;
 
 import java.util.HashMap;
 import java.util.List;
+
+import vinscan.adapter.VinParseResultAdapter;
 
 public class EditTextWatcher implements TextWatcher {
 
@@ -40,22 +41,22 @@ public class EditTextWatcher implements TextWatcher {
 		String tmpstr = str.replace("\u00A0", "");
 		tmpstr = tmpstr.replace(" ", "");
 		return tmpstr;
-		
+
 	}
 
 	@Override
 	public void afterTextChanged(Editable arg0) {
 		txt = numberEditText.getText().toString();
 		afterLen = txt.length();
-		txt=removeAllSpace(txt).trim();		
+		txt=removeAllSpace(txt).trim();
 		txt = change(txt);
 		if(!"".equals(txt)&&txt!=null){
 			 vpi = new VinParseInfo();
 	    	 vinInfo =vpi.getVinParseInfo(txt);
-	    	 VPRadapter.SetData(vinInfo);	
+	    	 VPRadapter.SetData(vinInfo);
 	    	 VPRadapter.notifyDataSetChanged();
-		}		
-		if (afterLen > beforeLen) {		
+		}
+		if (afterLen > beforeLen) {
 			SpannableString txt01 = null;
 			if(screenInches<=5.5){
 			    txt01= ViewUtil.returnaddLetterSpacingString(txt, 2);
@@ -67,18 +68,18 @@ public class EditTextWatcher implements TextWatcher {
 				txt01= ViewUtil.returnaddLetterSpacingString(txt, 2);
 			}else if(screenInches>6.2&&screenInches<7){
 				txt01= ViewUtil.returnaddLetterSpacingString(txt, 2.5f);
-			}			
+			}
 			    numberEditText.setText(txt01, TextView.BufferType.SPANNABLE);
-				numberEditText.setSelection(txt01.length());						
-		}else { 			
-            if (txt.startsWith(" ")) {  
+				numberEditText.setSelection(txt01.length());
+		}else {
+            if (txt.startsWith(" ")) {
                 numberEditText.setText(new StringBuffer(txt).delete(
-                        afterLen - 1, afterLen).toString());  
-                numberEditText.setSelection(numberEditText.getText()  
-                        .length());  
-                
-            }  
-        }  
+                        afterLen - 1, afterLen).toString());
+                numberEditText.setSelection(numberEditText.getText()
+                        .length());
+
+            }
+        }
 //		 System.out.println("识别结果:"+removeAllSpace(txt).trim());
 	}
 
@@ -97,10 +98,10 @@ public class EditTextWatcher implements TextWatcher {
 	 public static String change(String str) {
 		  char UPchange[] = new char[str.length()];
 		  for(int i=0;i<str.length();i++){
-		   
+
 		   char charType = str.charAt(i);
 		   if(charType>='a' && charType<='z')
-			   charType = (char) (charType-32);		   
+			   charType = (char) (charType-32);
 		   	   UPchange[i] = charType;
 		  }
 		  return new String(UPchange);

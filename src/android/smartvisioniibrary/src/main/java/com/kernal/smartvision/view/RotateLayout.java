@@ -1,4 +1,4 @@
-package com.kernal.smartvision.view;
+package vinscan.view;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kernal.smartvision.inteface.Rotatable;
+import vinscan.inteface.Rotatable;
 
 
 // A RotateLayout is designed to display a single item and provides the
@@ -90,7 +90,7 @@ import com.kernal.smartvision.inteface.Rotatable;
                 break;
         }
         mChild.setRotation(-mOrientation);
-       
+
     }
 
     // Rotate the view counter-clockwise

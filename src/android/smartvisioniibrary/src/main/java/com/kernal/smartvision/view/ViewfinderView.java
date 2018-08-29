@@ -1,4 +1,4 @@
-package com.kernal.smartvision.view;
+package vinscan.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,6 +14,7 @@ import com.kernal.smartvisionocr.model.ConfigParamsModel;
 import com.kernal.smartvisionocr.utils.KernalLSCXMLInformation;
 
 import java.util.List;
+
 
 /**
  * 项目名称:慧视OCR 类名称；ViewfinderView 类描述：扫描框 创建人：黄震 创建时间：20160322 修改人：${user}
@@ -32,7 +33,7 @@ public final class ViewfinderView extends View {
 	private static final int FRAME_LINE_WIDTH = 4;
 	private Rect frame;
 	private int width;
-	private int height; 
+	private int height;
 	private Paint paint;
 	public KernalLSCXMLInformation wlci;
 	public static int fieldsPosition = 0;// 输出结果的先后顺序
@@ -84,13 +85,13 @@ public final class ViewfinderView extends View {
 //                /**
 //                 * 这个矩形就是中间显示的那个框框
 //                 * true :横屏
-//                 */  
+//                 */
 //            	if(bool){
 //            		 frame = new Rect((int) (0.1 * width), (int) (height * 0.4), (int) ((configParamsModel.get(fieldsPosition).width + 0.1) * width), (int) (height * (0.4 + configParamsModel.get(fieldsPosition).height)));
 //            	}else{
-//            		 frame = new Rect((int) (0.025 * width), (int) (height * 0.4), (int) ((configParamsModel.get(fieldsPosition).width + 0.025) * width), (int) (height * (0.4 + configParamsModel.get(fieldsPosition).height)));            
+//            		 frame = new Rect((int) (0.025 * width), (int) (height * 0.4), (int) ((configParamsModel.get(fieldsPosition).width + 0.025) * width), (int) (height * (0.4 + configParamsModel.get(fieldsPosition).height)));
 //            	}
-//                               
+//
 //            } else {
                 /**
                  * 这个矩形就是中间显示的那个框框

@@ -1,4 +1,4 @@
-package com.kernal.smartvision.adapter;
+package vinscan.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,10 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kernal.smartvision.view.ViewfinderView;
 import com.kernal.smartvisionocr.model.RecogResultModel;
 
 import java.util.List;
+
+import vinscan.view.ViewfinderView;
+
 
 /**
  * Created by huangzhen on 2016/3/24.
@@ -26,7 +28,7 @@ public class RecogResultAdapter extends BaseAdapter {
     private ViewfinderView viewfinder_view;
     private int width,height;
     public  int selectedRecogResultPosition=0;
-    public boolean isRecogSuccess=false; 
+    public boolean isRecogSuccess=false;
     public RecogResultAdapter(Context context, List<RecogResultModel> data,
                               int width, int height) {
         this.width=width;
@@ -78,7 +80,7 @@ public class RecogResultAdapter extends BaseAdapter {
         if(isRecogSuccess){
             tv_list_doctype.setTextColor(Color.WHITE);
         }
-    
+
         return view;
 
     }

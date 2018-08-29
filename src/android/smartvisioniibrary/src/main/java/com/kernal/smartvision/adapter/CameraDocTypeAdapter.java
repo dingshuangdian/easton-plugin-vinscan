@@ -1,4 +1,4 @@
-package com.kernal.smartvision.adapter;
+package vinscan.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,10 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kernal.smartvision.view.ViewfinderView;
 import com.kernal.smartvisionocr.model.TempleModel;
 
 import java.util.List;
+
+import vinscan.view.ViewfinderView;
+
 
 public class CameraDocTypeAdapter extends BaseAdapter {
     private LayoutInflater inflater;
@@ -54,7 +56,7 @@ public class CameraDocTypeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent2) {
         // TODO Auto-generated method stub
     	key = String.valueOf(position);
-    	
+
         View view = convertView == null ? inflater.inflate(
                 context.getResources().getIdentifier("activity_list_doc_type",
                         "layout", context.getPackageName()), null) : convertView;
@@ -66,7 +68,7 @@ public class CameraDocTypeAdapter extends BaseAdapter {
         layoutParams.leftMargin=10;
         layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
         tv_list_doctype.setLayoutParams(layoutParams);
-     
+
         	 tv_list_doctype.setText(data.get(position).templateName);
              if(selectedPosition==position)
              {
@@ -74,8 +76,8 @@ public class CameraDocTypeAdapter extends BaseAdapter {
              }else{
                  tv_list_doctype.setTextColor(Color.WHITE);
              }
-        
-       
+
+
         return view;
 
     }

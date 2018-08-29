@@ -1,4 +1,4 @@
-package com.kernal.smartvision.ocr;
+package vinscan.ocr;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -18,11 +18,11 @@ public class CheckPermission {
 	public boolean permissionSet(String... permissions) {
 		for (String permission : permissions) {
 			if (isLackPermission(permission)) {//是否添加完全部权限集合
-			
+
 				return true;
 			}
 		}
-	
+
 		return false;
 	}
 	//检查系统权限是，判断当前是否缺少权限(PERMISSION_DENIED:权限是否足够)

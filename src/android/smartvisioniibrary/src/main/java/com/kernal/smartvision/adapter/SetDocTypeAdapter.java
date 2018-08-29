@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package com.kernal.smartvision.adapter;
+package vinscan.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,13 +19,14 @@ import com.kernal.smartvisionocr.model.TempleModel;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * 
+ *
  * 项目名称：SmartVisionOCR 类名称：SetDocTypeAdapter 类描述： 设置界面选项适配器 创建人：张志朋
  * 创建时间：2016-5-4 上午9:43:16 修改人：user 修改时间：2016-5-4 上午9:43:16 修改备注：
- * 
+ *
  * @version
- * 
+ *
  */
 public class SetDocTypeAdapter extends BaseAdapter {
 
@@ -44,7 +45,7 @@ public class SetDocTypeAdapter extends BaseAdapter {
 		this.listData = listdata;
 		this.Data = data;
 		inflater = LayoutInflater.from(context);
-		
+
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class SetDocTypeAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 	       View view = convertView == null ? inflater.inflate(
 	                context.getResources().getIdentifier("activity_setting_item",
-	                        "layout", context.getPackageName()), null) : convertView;		
+	                        "layout", context.getPackageName()), null) : convertView;
 		tv_doctype = (TextView) view
 				.findViewById(context.getResources().getIdentifier("textView_setting_item", "id", context.getPackageName()));
 //		textView_setting_item
@@ -79,7 +80,7 @@ public class SetDocTypeAdapter extends BaseAdapter {
 				.findViewById(context.getResources().getIdentifier("checkBox_setting_item", "id", context.getPackageName()));
 		params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		params.leftMargin = (int) (0.02 * width);
-	
+
 		params.topMargin = (int) (height * 0.01);
 		params.bottomMargin = (int) (height * 0.01);
 		params.weight = (float) 1.0;
@@ -88,18 +89,18 @@ public class SetDocTypeAdapter extends BaseAdapter {
 		params.topMargin = (int) (height * 0.01);
 		params.bottomMargin = (int) (height * 0.01);
 		params.rightMargin = (int) (0.02 * width);
-		cb_doctype.setLayoutParams(params);			
+		cb_doctype.setLayoutParams(params);
 //		System.out.println("获取的名称："+listData.get(position).templateName);
 		tv_doctype.setTextColor(Color.BLACK);
-		tv_doctype.setText(listData.get(position).templateName);		
+		tv_doctype.setText(listData.get(position).templateName);
 		 if (listData.get(position).isSelected) {
              cb_doctype.setChecked(true);
-         } else { 
+         } else {
              cb_doctype.setChecked(false);
          }
 
 		 cb_doctype.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub

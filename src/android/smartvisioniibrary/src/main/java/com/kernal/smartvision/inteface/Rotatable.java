@@ -1,4 +1,4 @@
-package com.kernal.smartvision.inteface;/*
+package vinscan.inteface;/*
  * Copyright (C) 2011 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,6 @@ package com.kernal.smartvision.inteface;/*
 
 
 public interface Rotatable {
-	
+
     public void setOrientation(int orientation);
 }

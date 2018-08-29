@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package com.kernal.smartvision.ocr;
+package vinscan.ocr;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.kernal.smartvision.adapter.SetDocTypeAdapter;
+
 import com.kernal.smartvisionocr.utils.KernalLSCXMLInformation;
 import com.kernal.smartvisionocr.utils.SharedPreferencesHelper;
 import com.kernal.smartvisionocr.utils.Utils;
@@ -36,13 +36,15 @@ import com.kernal.smartvisionocr.utils.WriteToPCTask;
 
 import java.util.ArrayList;
 
+import vinscan.adapter.SetDocTypeAdapter;
+
 /**
- * 
+ *
  * 项目名称：SmartVisionOCR 类名称：SettingActivity 类描述： 创建人：张志朋 创建时间：2016-5-3 下午3:33:16
  * 修改人：user 修改时间：2016-5-3 下午3:33:16 修改备注：
- * 
+ *
  * @version
- * 
+ *
  */
 public class SettingActivity extends Activity {
 	private DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -84,7 +86,7 @@ public class SettingActivity extends Activity {
 						false);
 		adapter = new SetDocTypeAdapter(getApplicationContext(), srcWidth,
 				srcHeight, wlci_Landscape.template,wlci_Portrait.template);
-		
+
 		LayoutInflater mLi = LayoutInflater.from(this);
         view1 = mLi.inflate(getResources().getIdentifier(
                 "activity_set_upload", "layout", this.getPackageName()), null);
@@ -164,14 +166,14 @@ public class SettingActivity extends Activity {
 
             mTabPager.setCurrentItem(0);
         }
-       
+
         findUploadView();
         findDocTypeView();
-       
+
 	}
 	//图片及结果上传界面UI布局
 	private void findUploadView(){
-		
+
 		tv_set_upload_ip=(TextView)view1.findViewById(getResources().getIdentifier("tv_set_upload_ip", "id", getPackageName()));
 		et_set_upload_ip=(EditText)view1.findViewById(getResources().getIdentifier("et_set_upload_ip", "id", getPackageName()));
 		cb_isupload=(CheckBox)view1.findViewById(getResources().getIdentifier("cb_isupload", "id", getPackageName()));
@@ -204,17 +206,17 @@ public class SettingActivity extends Activity {
 	        btn_setting_back = (Button) this.findViewById(getResources().getIdentifier("btn_setting_back",
 	                "id", this.getPackageName()));
 	        btn_setting_back.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					if(cb_isupload.isChecked())
 						{
 							SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
-				                    true);	
+				                    true);
 						}else{
 							SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
-				                    false);	
+				                    false);
 						}
 						if(et_set_upload_ip.getText().toString()!=null){
 							WriteToPCTask.httpPath=et_set_upload_ip.getText().toString();
@@ -280,7 +282,7 @@ public class SettingActivity extends Activity {
 		listview_setting.setLayoutParams(LinearParams);
 		listview_setting.setAdapter(adapter);
 		listview_setting.setOnItemClickListener(new OnItemClickListener() {
-			
+
 			@Override
 			public void onItemClick(AdapterView<?> parentView, View view,
 									int position, long id) {
@@ -289,29 +291,29 @@ public class SettingActivity extends Activity {
 //					wlci_Portrait.template.get(position).isSelected=true;
 //				}else{
 //					wlci_Portrait.template.get(position).isSelected = false;
-//				}				
+//				}
 				if(wlci_Landscape.template.get(position).isSelected){
 					wlci_Landscape.template.get(position).isSelected=false;
-								
+
 				}else{
-					wlci_Landscape.template.get(position).isSelected=true;	
-					
+					wlci_Landscape.template.get(position).isSelected=true;
+
 				}
-				if(wlci_Portrait.template.get(position).isSelected){					
-					wlci_Portrait.template.get(position).isSelected=false;				
+				if(wlci_Portrait.template.get(position).isSelected){
+					wlci_Portrait.template.get(position).isSelected=false;
 				}else{
-					
-					wlci_Portrait.template.get(position).isSelected=true;				
-				}				
+
+					wlci_Portrait.template.get(position).isSelected=true;
+				}
 				adapter.notifyDataSetChanged();
 			}
 		});
-	
+
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 //	@Override
@@ -321,10 +323,10 @@ public class SettingActivity extends Activity {
 //			if(cb_isupload.isChecked())
 //			{
 //				SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
-//	                    true);	
+//	                    true);
 //			}else{
 //				SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
-//	                    false);	
+//	                    false);
 //			}
 //			if(et_set_upload_ip.getText().toString()!=null){
 //				WriteToPCTask.httpPath=et_set_upload_ip.getText().toString();
@@ -338,7 +340,7 @@ public class SettingActivity extends Activity {
 //		default:
 //			break;
 //		}
-//		
+//
 //	}
 	 public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 	        @Override
@@ -389,7 +391,7 @@ public class SettingActivity extends Activity {
 	        }
 	    }
 
-	   
+
 	    public class MyOnClickListener implements OnClickListener {
 	        private int index = 0;
 
@@ -424,18 +426,18 @@ public class SettingActivity extends Activity {
 			{
 				SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
 	                    true);
-				
+
 			}else{
 				SharedPreferencesHelper.putBoolean(getApplicationContext(), "upload",
-	                    false);	
+	                    false);
 			}
 			Utils.updateXml(SettingActivity.this,wlci_Landscape,"appTemplateConfig.xml");
 			Utils.updateXml(SettingActivity.this,wlci_Portrait,"appTemplatePortraitConfig.xml");
 			finish();
 		};
 		return super.onKeyDown(keyCode, event);
-		
-		
+
+
 	}
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onDestroy()

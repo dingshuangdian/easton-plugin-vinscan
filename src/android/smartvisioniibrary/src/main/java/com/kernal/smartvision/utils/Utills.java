@@ -1,4 +1,4 @@
-package com.kernal.smartvision.utils;
+package vinscan.utils;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;

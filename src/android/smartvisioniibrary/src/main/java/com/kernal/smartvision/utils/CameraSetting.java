@@ -1,4 +1,4 @@
-package com.kernal.smartvision.utils;
+package vinscan.utils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -15,6 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
 
 import com.kernal.smartvisionocr.utils.Utils;
 
@@ -57,7 +58,7 @@ public class CameraSetting {
 	      return null;
 	    }
 	    boolean explicitRequest = cameraId >= 0;
-	    if (!explicitRequest) {	     
+	    if (!explicitRequest) {
 	      int index = 0;
 	      while (index < numCameras) {
 	        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
@@ -66,26 +67,26 @@ public class CameraSetting {
 	          break;
 	        }
 	        index++;
-	      }      
+	      }
 	      cameraId = index;
 	    }
-	    if (cameraId < numCameras) {	    
+	    if (cameraId < numCameras) {
 	    	camera = Camera.open(cameraId);
 	    } else {
-	      if (explicitRequest) {	    	
+	      if (explicitRequest) {
 	    	  camera = null;
-	      } else {	    	 
+	      } else {
 	    	  cameraId = 0;
 	    	  camera = Camera.open(0);
 	      }
 	    }
 	    currentCameraId = cameraId;
 	    return camera;
-	  } 
-	 
+	  }
+
 	  public  int  setCameraDisplayOrientation(  int uiRot) {
 		     Camera.CameraInfo info =new Camera.CameraInfo();
-		     camera.getCameraInfo(currentCameraId, info);		    
+		     camera.getCameraInfo(currentCameraId, info);
 		     int degrees = 0;
 		     switch (uiRot) {
 		         case Surface.ROTATION_0: degrees = 0; break;
@@ -99,7 +100,7 @@ public class CameraSetting {
 		         result = (360 - result) % 360;  // compensate the mirror
 		     } else {  // back-facing
 		         result = (info.orientation - degrees + 360) % 360;
-		     }		   		    
+		     }
 		     return result;
 		 }
 	/**
@@ -221,11 +222,11 @@ public class CameraSetting {
 		}
 
 		// Try to find an size match aspect ratio and size
-		
+
 		for (Camera.Size size : sizes) {
-			
+
 			double ratio = (double) size.width / size.height;
-		
+
 			if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
 				continue;
 			if (Math.abs(size.height - targetHeight) < minDiff) {
@@ -376,7 +377,7 @@ public class CameraSetting {
 		// parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
 		// parameters.setFocusMode(parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 		// }
-		
+
 		if (parameters.getSupportedFocusModes().contains(
 				parameters.FOCUS_MODE_AUTO)) {
 			parameters.setFocusMode(parameters.FOCUS_MODE_AUTO);
@@ -447,7 +448,7 @@ public class CameraSetting {
 
 	/**
 	 * 获取设备的预览分辨率的宽和高
-	 * 
+	 *
 	 * @param camera
 	 */
 	public void getCameraPreParameters(Camera camera)

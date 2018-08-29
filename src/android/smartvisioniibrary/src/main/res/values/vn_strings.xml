@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">慧视OCR开发包</string>
+    <string name="vnapp_name">慧视OCR开发包</string>
     <string name="takepic">扫描识别</string>
     <string name="ok">确定</string>
     <string name="unsupportflash">此设备不支持闪光灯</string>

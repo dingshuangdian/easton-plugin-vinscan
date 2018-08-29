@@ -39,7 +39,7 @@
         android:listSelector="#000000"
         android:scrollbars="none"
         />
-    <com.kernal.smartvision.view.HorizontalListView
+    <vinscan.view.HorizontalListView
         android:visibility="gone"
         android:id="@+id/type_template_HorizontallistView"
         android:layout_width="fill_parent"
@@ -77,7 +77,7 @@
 
         android:id="@+id/iv_scaner_line"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
+        android:layout_height="fill_parent"
         android:background="@drawable/scanline"
         android:visibility="gone"/>
 

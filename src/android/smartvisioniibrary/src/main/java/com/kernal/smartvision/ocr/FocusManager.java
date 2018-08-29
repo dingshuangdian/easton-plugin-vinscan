@@ -1,4 +1,4 @@
-package com.kernal.smartvision.ocr;
+package vinscan.ocr;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -14,14 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.kernal.smartvision.inteface.FocusIndicator;
-import com.kernal.smartvision.view.FocusIndicatorView;
+
 import com.kernal.smartvisionocr.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import vinscan.inteface.FocusIndicator;
+import vinscan.view.FocusIndicatorView;
 
 @SuppressLint("NewApi") public class FocusManager {
     private static Camera mCamera = null;

@@ -1,4 +1,4 @@
-package com.kernal.smartvision.ocr;
+package vinscan.ocr;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -30,10 +30,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kernal.smartvision.adapter.ShowResultListAdapter;
-import com.kernal.smartvision.adapter.VinParseResultAdapter;
-import com.kernal.smartvision.utils.EditTextWatcher;
-import com.kernal.smartvision.utils.Utills;
+
 import com.kernal.smartvisionocr.utils.Utils;
 import com.kernal.smartvisionocr.utils.WriteToPCTask;
 import com.kernal.vinparseengine.VinParseInfo;
@@ -44,6 +41,11 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import vinscan.adapter.ShowResultListAdapter;
+import vinscan.adapter.VinParseResultAdapter;
+import vinscan.utils.EditTextWatcher;
+import vinscan.utils.Utills;
 
 /**
  *
@@ -137,7 +139,7 @@ public class ShowResultActivity extends Activity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.app.Activity#onResume()
 	 */
 	@Override
@@ -328,7 +330,7 @@ public class ShowResultActivity extends Activity {
 	// }
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.app.Activity#onKeyDown(int, android.view.KeyEvent)
 	 */
 	@Override

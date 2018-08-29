@@ -1,4 +1,4 @@
-package com.kernal.smartvision.utils;
+package vinscan.utils;
 
 import android.content.Context;
 import android.text.Spannable;
@@ -15,14 +15,14 @@ import android.widget.TextView;
 public class ViewUtil {
 	/**
 	 * 增大文本水平间距
-	 * 
+	 *
 	 * @param view
 	 *            TextView | Button | EditText
 	 * @param letterSpace
 	 *            字间距 [-0.5, 4F] 之间较为合适， 精度为 0.001F
 	 */
 	public static void addLetterSpacing(View view, float letterSpace) {
-	
+
 		if ((view == null)) {
 			return;
 		}
@@ -42,7 +42,7 @@ public class ViewUtil {
 
 	/**
 	 * 增大文本水平间距
-	 * 
+	 *
 	 * @param view
 	 *            TextView | Button | EditText
 	 * @param letterSpace
